@@ -104,7 +104,7 @@
             }
 
         if(p === 0){
-          paragraph = "Satan ipsum " + paragraph;
+          paragraph = "Satan ipsum " + paragraph[0].toLowerCase() + paragraph.substring(1,paragraph.length);
         }    
         output+=paragraph;
         output+='<br/><br/>';
