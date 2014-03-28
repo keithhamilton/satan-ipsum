@@ -1,0 +1,113 @@
+<html>
+<head>
+    <title>Satan Ipsum: The missing ipsum generator</title>
+</head>
+<body>
+        <label for='paragraphCount'>Number of paragraphs</label>
+        <input type='text' id='paragraphCount'/>
+        <button id='generate'>Generate!</button>
+        <br/>
+        <div style='width:400px;height:auto;margin-top:20px;' id='generatedText'></div>
+</body>
+<script>
+    words = [
+        'satan',
+        'hatred',
+        'blackness',
+        'blood',
+        'rivers of blood',
+        'fire',
+        'pain',
+        'wheel of pain',
+        'burned alive',
+        'eternity',
+        'desecrated souls',
+        'hopeless',
+        'lightbringer',
+        'unending torture',
+        'darkness eternal',
+        'cloven feet',
+        'pitchfork',
+        'infinite abyss',
+        'nine circles',
+        'natas',
+        'circling demons',
+        'Old Nick cometh',
+        'black mass',
+        'Lucifer',
+        'Beelzebub',
+        'chief of demons',
+        'bow before the deceiver',
+        'devourer of souls',
+        'lies',
+        'deceiver',
+        'Abbadon',
+        'dark prince',
+        'Morningstar',
+        'pit of snakes',
+        'drinking blood',
+        'undying agony',
+        'suffering',
+        'everlasting fire',
+        'torment unending',
+        'inferno',
+        'place of the condemned',
+        'forever punished',
+        'excruciating flame',
+        'agonizing',
+        'bottomless pit of the damned'
+    ]
+
+    var paragraph_min_sentences=2;
+    var paragraph_max_sentences=6;
+    var sentence_min_length=5;
+    var sentence_max_length=15;
+    
+    function randomInRange(min,max){
+        return Math.floor(Math.random()*(max-min)+min);
+    }
+
+    function generate_paragraph(count){
+        var output='';
+        for(var p=0;p<count;p++){
+            var paragraph;
+            if(p==0){
+                paragraph = 'satan ipsum '; 
+            }
+            else{
+                paragraph = '';
+            }
+            var paragraph_sentence_count=randomInRange(paragraph_min_sentences,paragraph_max_sentences)
+            for(var i=0;i<paragraph_sentence_count;i++){
+                var sentence='';
+                var sentence_length = randomInRange(sentence_min_length,sentence_max_length);
+                for(var j=0;j<sentence_length;j++){
+                    var index = randomInRange(0,words.length);
+                    sentence+=words[index];
+                    if(j < sentence_length-1){
+                        sentence+=' ';
+                    }
+                }
+                sentence += '. ';
+                paragraph+=sentence;
+            }
+
+        output+=paragraph;
+        output+='<br/><br/>';
+        
+        }
+        return output;
+    }
+
+    var generate_button = document.getElementById('generate');
+    var targetTextArea = document.getElementById('generatedText');
+
+    generate_button.addEventListener('click', function(){
+        var paragraphInput = document.getElementById('paragraphCount');
+        var nParagraphs = paragraphInput.value;
+        var generatedText = generate_paragraph(parseInt(nParagraphs));
+        targetTextArea.innerHTML = generatedText;
+    })
+
+</script>
+</html>
