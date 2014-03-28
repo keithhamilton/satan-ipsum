@@ -13,36 +13,117 @@
     <![endif]-->
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Satan-ipsum</h1>
-        <p>Satan-themed ipsum generator</p>
-
-        <p class="view"><a href="https://github.com/keithhamilton/satan-ipsum">View the Project on GitHub <small>keithhamilton/satan-ipsum</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/keithhamilton/satan-ipsum/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/keithhamilton/satan-ipsum/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/keithhamilton/satan-ipsum">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <p>
-</p>
-    Satan Ipsum: The missing ipsum generatorNumber of paragraphs
-        Generate!
-        <br><div></div>
-
-
-<p></p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/keithhamilton">keithhamilton</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
     
+
+
+
+
+
+
+
+
+
+
+<script>
+    words = [
+        'satan',
+        'hatred',
+        'blackness',
+        'blood',
+        'rivers of blood',
+        'fire',
+        'pain',
+        'wheel of pain',
+        'burned alive',
+        'eternity',
+        'desecrated souls',
+        'hopeless',
+        'lightbringer',
+        'unending torture',
+        'darkness eternal',
+        'cloven feet',
+        'pitchfork',
+        'infinite abyss',
+        'nine circles',
+        'natas',
+        'circling demons',
+        'Old Nick cometh',
+        'black mass',
+        'Lucifer',
+        'Beelzebub',
+        'chief of demons',
+        'bow before the deceiver',
+        'devourer of souls',
+        'lies',
+        'deceiver',
+        'Abbadon',
+        'dark prince',
+        'Morningstar',
+        'pit of snakes',
+        'drinking blood',
+        'undying agony',
+        'suffering',
+        'everlasting fire',
+        'torment unending',
+        'inferno',
+        'place of the condemned',
+        'forever punished',
+        'excruciating flame',
+        'agonizing',
+        'bottomless pit of the damned'
+    ]
+
+    var paragraph_min_sentences=2;
+    var paragraph_max_sentences=6;
+    var sentence_min_length=5;
+    var sentence_max_length=15;
+    
+    function randomInRange(min,max){
+        return Math.floor(Math.random()*(max-min)+min);
+    }
+
+    function generate_paragraph(count){
+        var output='';
+        for(var p=0;p<count;p++){
+            var paragraph;
+            if(p==0){
+                paragraph = 'satan ipsum '; 
+            }
+            else{
+                paragraph = '';
+            }
+            var paragraph_sentence_count=randomInRange(paragraph_min_sentences,paragraph_max_sentences)
+            for(var i=0;i<paragraph_sentence_count;i++){
+                var sentence='';
+                var sentence_length = randomInRange(sentence_min_length,sentence_max_length);
+                for(var j=0;j<sentence_length;j++){
+                    var index = randomInRange(0,words.length);
+                    sentence+=words[index];
+                    if(j < sentence_length-1){
+                        sentence+=' ';
+                    }
+                }
+                sentence += '. ';
+                paragraph+=sentence;
+            }
+
+        output+=paragraph;
+        output+='<br/><br/>';
+        
+        }
+        return output;
+    }
+
+    var generate_button = document.getElementById('generate');
+    var targetTextArea = document.getElementById('generatedText');
+
+    generate_button.addEventListener('click', function(){
+        var paragraphInput = document.getElementById('paragraphCount');
+        var nParagraphs = paragraphInput.value;
+        var generatedText = generate_paragraph(parseInt(nParagraphs));
+        targetTextArea.innerHTML = generatedText;
+    })
+
+</script>
   </body>
 </html>
