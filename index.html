@@ -81,12 +81,6 @@
         var output='';
         for(var p=0;p<count;p++){
             var paragraph;
-            if(p==0){
-                paragraph = 'Satan ipsum '; 
-            }
-            else{
-                paragraph = '';
-            }
             var paragraph_sentence_count=randomInRange(paragraph_min_sentences,paragraph_max_sentences)
             for(var i=0;i<paragraph_sentence_count;i++){
                 var sentence='';
@@ -99,7 +93,12 @@
                     }
                 }
                 sentence += '. ';
-		sentence = sentence[0].toUpperCase() + sentence.substring(1,sentence.length-1);
+		if(p===0){
+			sentence = "Satan ipsum "+sentence;
+		}
+		else{
+			sentence = sentence[0].toUpperCase() + sentence.substring(1,sentence.length);
+		}
                 paragraph+=sentence;
             }
 
