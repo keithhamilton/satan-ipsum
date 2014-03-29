@@ -10,12 +10,26 @@ var Generator = (function(){
         return Math.floor(Math.random()*(max-min)+min);
     }
 
-    function _generateParagraph(count,sentenceVariance,includeEnochian){
+    function _generateParagraph(count,sentenceVariance,includeEnochian,enochianWeight){
         var _sentence_min = _sentence_min_length-sentenceVariance;
         var _sentence_max = _sentence_max_length+sentenceVariance;
         var _wordsArray = includeEnochian ? _words.concat(_enochian) : _words;
         var _output='';
 
+        // increase enochian weight if above one and includeEnochian
+        if(includeEnochian){
+            switch(enochianWeight){
+                case 2:
+                case 3:
+                    do{
+                        _wordsArray.concat(_enochian);
+                        enochianWeight--;
+                    } while(enochianWeight > 1);
+                    break;
+                default:
+                    break;
+            }
+        }
         // randomize array order
         _wordsArray.sort(function() {
           return .5 - Math.random();

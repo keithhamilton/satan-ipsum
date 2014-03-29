@@ -26,6 +26,9 @@
         <br/>
         <label for='includeEnochian'>Include Enochian text</label>
         <input type='checkbox' id='includeEnochian'/><br/>
+        <label for='enochianWeight' style='display:none'>Enochian Weight</label>
+        <input style='display:none' type='range' id='enochianWeight' value='0' min='1' max='3'/>
+        <br/>
         <button id='generate'>Generate!</button>
         <br/><br/>
         <hr/>
@@ -35,15 +38,32 @@
 
     var generate_button = document.getElementById('generate');
     var targetTextArea = document.getElementById('generatedText');
+    var includeEnochianCheck = document.getElementById('includeEnochian');
+    var enochianWeight = document.getElementById('enochianWeight');
 
     generate_button.addEventListener('click', function(){
-        var generator = Generator;
-        var nParagraphs = parseInt(document.getElementById('paragraphCount').value);
-        var sentenceVariance = parseInt(document.getElementById('sentenceLength').value);
-        var includeEnochian = document.getElementById('includeEnochian').checked;
+        var _generator = Generator;
+        var _nParagraphs = parseInt(document.getElementById('paragraphCount').value);
+        var _sentenceVariance = parseInt(document.getElementById('sentenceLength').value);
+        var _includeEnochian = document.getElementById('includeEnochian').checked;
+        var _enochianWeight = parseInt(document.getElementById('enochianWeight').value);
 
-        var generatedText = generator.generateParagraph(nParagraphs,sentenceVariance,includeEnochian);
-        targetTextArea.innerHTML = generatedText;
+        var _generatedText = _generator.generateParagraph(_nParagraphs,_sentenceVariance,_includeEnochian,_enochianWeight);
+        targetTextArea.innerHTML = _generatedText;
     })
+
+    includeEnochianCheck.addEventListener('click', function(){
+        var _style;
+        if(includeEnochianCheck.checked){
+           _style='block'; 
+        }
+        else{
+            _style='none';
+        }
+        enochianWeight.style.display = _style;
+        enochianWeight.previousElementSibling.style.display = _style;
+    })
+
+
 </script>
 </html>
