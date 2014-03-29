@@ -11,6 +11,7 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script src="javascripts/ipsum_generator.min.js" type='text/javascript'></script>
   </head>
 <body>
         <img src='images/pentagram.png' width='250' height='250' class='rotate180'/>
@@ -28,122 +29,17 @@
         <div style='width:400px;height:auto;margin-top:20px;' id='generatedText'></div>
 </body>
 <script>
-    words = [
-        'satan',
-        'hatred',
-        'blackness',
-        'blood',
-        'rivers of blood',
-        'fire',
-        'pain',
-        'wheel of pain',
-        'burned alive',
-        'eternity',
-        'desecrated souls',
-        'hopeless',
-        'lightbringer',
-        'unending torture',
-        'darkness eternal',
-        'cloven feet',
-        'pitchfork',
-        'infinite abyss',
-        'nine circles',
-        'natas',
-        'circling demons',
-        'Old Nick cometh',
-        'black mass',
-        'Lucifer',
-        'Beelzebub',
-        'chief of demons',
-        'bow before the deceiver',
-        'devourer of souls',
-        'lies',
-        'deceiver',
-        'Abbadon',
-        'dark prince',
-        'Morningstar',
-        'pit of snakes',
-        'drinking blood',
-        'undying agony',
-        'suffering',
-        'everlasting fire',
-        'torment unending',
-        'inferno',
-        'place of the condemned',
-        'forever punished',
-        'excruciating flame',
-        'agonizing',
-        'bottomless pit of the damned'
-    ]
-
-    
-    function randomInRange(min,max){
-        return Math.floor(Math.random()*(max-min)+min);
-    }
-
-    function generate_paragraph(count, sentenceVariance){
-        var paragraph_min_sentences=2;
-        var paragraph_max_sentences=6;
-        var sentence_min_length=5-sentenceVariance;
-        var sentence_max_length=15+sentenceVariance;
-
-
-        var output='';
-        for(var p=0;p<count;p++){
-            var paragraph;
-            if(p==0){
-                paragraph = ''; 
-            }
-            else{
-                paragraph = '';
-            }
-            var paragraph_sentence_count=randomInRange(paragraph_min_sentences,paragraph_max_sentences)
-            for(var i=0;i<paragraph_sentence_count;i++){
-                var sentence='';
-                var sentence_length = randomInRange(sentence_min_length,sentence_max_length);
-                var last_word_index=0;
-                for(var j=0;j<sentence_length;j++){
-                    var index = randomInRange(0,words.length);
-                    //if the index is the same as the last index pick another one.
-                    while(index === last_word_index){
-                        index = randomInRange(0,words.length);
-                    }
-                    last_word_index=index;
-
-                    sentence+=words[index];
-                    if(j < sentence_length-1){
-                        sentence+=' ';
-                    }
-                }
-                sentence += '. ';
-                sentence = sentence[0].toUpperCase() + sentence.substring(1,sentence.length);
-                paragraph+=sentence;
-            }
-
-        if(p === 0){
-          paragraph = "Satan ipsum " + paragraph[0].toLowerCase() + paragraph.substring(1,paragraph.length);
-        }    
-        output+=paragraph;
-        output+='<br/><br/>';
-        
-        }
-        return output;
-    }
 
     var generate_button = document.getElementById('generate');
     var targetTextArea = document.getElementById('generatedText');
 
-    
-
     generate_button.addEventListener('click', function(){
-        var paragraphInput = document.getElementById('paragraphCount');
-        var nParagraphs = parseInt(paragraphInput.value);
-
+        var generator = Generator;
+        var nParagraphs = parseInt(document.getElementById('paragraphCount').value);
         var sentenceVariance = parseInt(document.getElementById('sentenceLength').value);
 
-        var generatedText = generate_paragraph(nParagraphs,sentenceVariance);
+        var generatedText = generator.generateParagraph(nParagraphs,sentenceVariance);
         targetTextArea.innerHTML = generatedText;
     })
-
 </script>
 </html>
