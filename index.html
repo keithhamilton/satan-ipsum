@@ -13,8 +13,16 @@
     <![endif]-->
   </head>
 <body>
+        <img src='images/pentagram.png' width='250' height='250'/>
+        <br/>
+        <h2>Satan Ipsum: an ipsum generator for the rest of us</h2>
+        <hr/>
         <label for='paragraphCount'>Number of paragraphs</label>
-        <input type='text' id='paragraphCount'/>
+        <input type='text' id='paragraphCount' value='4'/>
+        <br/>
+        <label for='sentenceLength'>Sentence Length Variance</label>
+        <input type='range' id='sentenceLength' value='0' min='-4' max='4'/>
+        <br/><br/> 
         <button id='generate'>Generate!</button>
         <br/>
         <div style='width:400px;height:auto;margin-top:20px;' id='generatedText'></div>
@@ -68,16 +76,18 @@
         'bottomless pit of the damned'
     ]
 
-    var paragraph_min_sentences=2;
-    var paragraph_max_sentences=6;
-    var sentence_min_length=5;
-    var sentence_max_length=15;
     
     function randomInRange(min,max){
         return Math.floor(Math.random()*(max-min)+min);
     }
 
-    function generate_paragraph(count){
+    function generate_paragraph(count, sentenceVariance){
+        var paragraph_min_sentences=2;
+        var paragraph_max_sentences=6;
+        var sentence_min_length=5-sentenceVariance;
+        var sentence_max_length=15+sentenceVariance;
+
+
         var output='';
         for(var p=0;p<count;p++){
             var paragraph;
@@ -91,8 +101,15 @@
             for(var i=0;i<paragraph_sentence_count;i++){
                 var sentence='';
                 var sentence_length = randomInRange(sentence_min_length,sentence_max_length);
+                var last_word_index=0;
                 for(var j=0;j<sentence_length;j++){
                     var index = randomInRange(0,words.length);
+                    //if the index is the same as the last index pick another one.
+                    while(index === last_word_index){
+                        index = randomInRange(0,words.length);
+                    }
+                    last_word_index=index;
+
                     sentence+=words[index];
                     if(j < sentence_length-1){
                         sentence+=' ';
@@ -116,10 +133,15 @@
     var generate_button = document.getElementById('generate');
     var targetTextArea = document.getElementById('generatedText');
 
+    
+
     generate_button.addEventListener('click', function(){
         var paragraphInput = document.getElementById('paragraphCount');
-        var nParagraphs = paragraphInput.value;
-        var generatedText = generate_paragraph(parseInt(nParagraphs));
+        var nParagraphs = parseInt(paragraphInput.value);
+
+        var sentenceVariance = parseInt(document.getElementById('sentenceLength').value);
+
+        var generatedText = generate_paragraph(nParagraphs,sentenceVariance);
         targetTextArea.innerHTML = generatedText;
     })
 
