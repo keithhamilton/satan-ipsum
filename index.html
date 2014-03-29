@@ -23,10 +23,13 @@
         <br/>
         <label for='sentenceLength'>Sentence Length Variance</label>
         <input type='range' id='sentenceLength' value='0' min='-4' max='4'/>
-        <br/><br/> 
-        <button id='generate'>Generate!</button>
         <br/>
-        <div style='width:75%;height:auto;margin-top:20px;' id='generatedText'></div>
+        <label for='includeEnochian'>Include Enochian text</label>
+        <input type='checkbox' id='includeEnochian'/><br/>
+        <button id='generate'>Generate!</button>
+        <br/><br/>
+        <hr/>
+        <div style='width:75%;height:auto;margin-top:20px;color:#666;' id='generatedText'></div>
 </body>
 <script>
 
@@ -37,8 +40,9 @@
         var generator = Generator;
         var nParagraphs = parseInt(document.getElementById('paragraphCount').value);
         var sentenceVariance = parseInt(document.getElementById('sentenceLength').value);
+        var includeEnochian = document.getElementById('includeEnochian').checked;
 
-        var generatedText = generator.generateParagraph(nParagraphs,sentenceVariance);
+        var generatedText = generator.generateParagraph(nParagraphs,sentenceVariance,includeEnochian);
         targetTextArea.innerHTML = generatedText;
     })
 </script>
